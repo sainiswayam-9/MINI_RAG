@@ -142,8 +142,10 @@ This reduces hallucinations and improves answer trustworthiness.
   "query": "What is Retrieval Augmented Generation?"
 }
 
+---
 
-🔐 Environment Variables
+
+## 🔐 Environment Variables
 
 Secrets are managed using environment variables and excluded from version control.
 
