@@ -137,13 +137,15 @@ This reduces hallucinations and improves answer trustworthiness.
   "text": "Document text goes here"
 }
 
-### 'POST /query' — Query RAG
+'POST /query' — Query RAG
 {
   "query": "What is Retrieval Augmented Generation?"
 }
 
+---
 
-🔐 Environment Variables
+
+## 🔐 Environment Variables
 
 Secrets are managed using environment variables and excluded from version control.
 
