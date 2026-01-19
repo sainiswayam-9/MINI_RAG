@@ -1,34 +1,34 @@
 # 🚀 Mini RAG — AI Engineer Assessment (Track B)
 
-A production-style **Retrieval-Augmented Generation (RAG)** system built with **FastAPI**, **Supabase (pgvector)**, and modern **LLM tooling**.  
-This project demonstrates how unstructured text can be indexed, retrieved, reranked, and used to generate **grounded answers with citations**.
+A production-oriented **Retrieval-Augmented Generation (RAG)** system built using **FastAPI**, **Supabase (pgvector)**, and modern **LLM tooling**.  
+This project demonstrates how unstructured text can be indexed, retrieved, reranked, and used to generate **grounded answers with clear source attribution**.
 
 ---
 
 ## ✨ Key Highlights
 
-- Cloud-hosted **vector database** (Supabase pgvector)
-- Chunk-level indexing with overlap for better recall
-- Semantic retrieval + **MMR diversification**
-- Optional **cross-encoder reranking**
-- LLM-generated answers with **explicit source attribution**
-- Secure, server-side API key management
-- Clean, modular backend architecture
+- Cloud-hosted **vector database** using Supabase pgvector  
+- Chunk-level document indexing with overlap for improved recall  
+- Semantic retrieval combined with **MMR (Maximal Marginal Relevance)**  
+- Optional **cross-encoder reranking** for higher precision  
+- LLM-generated answers with **explicit citations and sources**  
+- Secure, server-side API key management  
+- Clean, modular, and extensible backend architecture  
 
 ---
 
 ## 🧠 What This Project Does
 
-1. Accepts raw text documents via an API
-2. Splits documents into overlapping chunks
-3. Generates embeddings for each chunk
-4. Stores embeddings in a hosted vector database
-5. Retrieves the most relevant chunks for a user query
-6. Reranks results for higher precision
-7. Generates a **grounded answer** using an LLM
-8. Returns answers along with **source metadata**
+1. Accepts raw text documents through an API  
+2. Splits documents into overlapping semantic chunks  
+3. Generates embeddings for each chunk  
+4. Stores embeddings in a hosted vector database  
+5. Retrieves the most relevant chunks for a user query  
+6. Applies reranking for improved answer quality  
+7. Generates a **grounded response** using an LLM  
+8. Returns answers along with **source metadata**  
 
-This mirrors real-world RAG systems used in search, Q&A, and enterprise knowledge assistants.
+This mirrors real-world RAG systems used in search engines, knowledge assistants, and enterprise Q&A platforms.
 
 ---
 
@@ -43,9 +43,9 @@ User
 └── POST /query (user question)
 ├── Query embedding
 ├── Vector similarity search (cosine)
-├── MMR (diversity optimization)
+├── MMR diversification
 ├── Reranking (optional)
-└── LLM answer + citations
+└── LLM answer with citations
 
 
 ---
@@ -57,7 +57,7 @@ User
 - **Uvicorn** (ASGI server)
 
 ### Vector Database
-- **Supabase (PostgreSQL + pgvector)**
+- **Supabase (PostgreSQL + pgvector)**  
 - Fully hosted cloud solution
 
 ### Embeddings
@@ -65,12 +65,12 @@ User
 - Dimensionality: **1536**
 
 ### Retrieval & Ranking
-- Cosine similarity search (pgvector)
-- **MMR (Maximal Marginal Relevance)**
+- Cosine similarity search using pgvector  
+- **MMR (Maximal Marginal Relevance)**  
 - **Cohere Rerank** (optional)
 
 ### LLM
-- **OpenAI GPT-4o-mini**
+- **OpenAI GPT-4o-mini**  
 - Context-restricted prompting for grounded answers
 
 ---
@@ -81,17 +81,17 @@ User
 
 Each row represents **one document chunk**.
 
-| Column | Description |
-|------|------------|
-| `id` | Unique chunk UUID |
-| `doc_id` | Document identifier |
-| `chunk_index` | Position within document |
-| `content` | Chunk text |
-| `embedding` | Vector embedding |
-| `metadata` | Source, title, etc. |
+| Column        | Description |
+|--------------|------------|
+| `id`         | Unique chunk UUID |
+| `doc_id`     | Document identifier |
+| `chunk_index`| Position within the document |
+| `content`    | Chunk text |
+| `embedding`  | Vector embedding |
+| `metadata`   | Source, title, section info |
 | `created_at` | Timestamp |
 
-A SQL function `match_documents()` performs efficient vector similarity search via RPC.
+A SQL function `match_documents()` is used for efficient vector similarity search via Supabase RPC.
 
 ---
 
@@ -101,29 +101,29 @@ A SQL function `match_documents()` performs efficient vector similarity search v
 - **Overlap**: 15%  
 - **Granularity**: Chunk-level indexing  
 
-This improves semantic recall while preserving contextual continuity.
+This balances retrieval accuracy with contextual continuity.
 
 ---
 
 ## 🔍 Retrieval Pipeline
 
-1. Embed user query
-2. Retrieve top-N chunks from vector DB
-3. Apply **MMR** to balance relevance and diversity
-4. Rerank candidates using a cross-encoder
-5. Select final top-K chunks for generation
+1. Embed the user query  
+2. Retrieve top-N chunks from the vector database  
+3. Apply **MMR** to balance relevance and diversity  
+4. Rerank candidates using a cross-encoder (optional)  
+5. Select final top-K chunks for generation  
 
 ---
 
 ## 🧾 Grounded Answering & Citations
 
-The LLM is prompted to:
-- Use **only retrieved context**
-- Produce concise, factual answers
+The LLM is explicitly instructed to:
+- Use **only the retrieved context**
+- Produce concise and factual answers
 - Attach inline citations (e.g. `[1]`, `[2]`)
-- Return structured source metadata
+- Return structured source metadata  
 
-This reduces hallucinations and improves answer trustworthiness.
+This significantly reduces hallucinations and improves answer trustworthiness.
 
 ---
 
@@ -136,73 +136,71 @@ This reduces hallucinations and improves answer trustworthiness.
   "title": "RAG Overview",
   "text": "Document text goes here"
 }
-
-'POST /query' — Query RAG
+```
+### 'POST /query' — Query RAG
+```json
 {
   "query": "What is Retrieval Augmented Generation?"
 }
+```
 
----
 
+🔐 Environment Variables
 
-## 🔐 Environment Variables
+Secrets are managed using environment variables and are excluded from version control.
 
-Secrets are managed using environment variables and excluded from version control.
-
-SUPABASE_URL=
-SUPABASE_SERVICE_ROLE_KEY=
-OPENAI_API_KEY=
-COHERE_API_KEY=
+*  SUPABASE_URL=
+*  SUPABASE_SERVICE_ROLE_KEY=
+*  OPENAI_API_KEY=
+*  COHERE_API_KEY=
 
 .env is ignored via .gitignore
 .env.example is provided as a template
 
 
 ▶️ Running Locally
-
-WINDOWS ->
-
+# Windows
 python -m venv venv
 venv\Scripts\activate
-
 pip install -r requirements.txt
 uvicorn main:app --reload
 
-Swagger UI:
-
+# Swagger UI
 http://127.0.0.1:8000/docs
-
 
 
 ☁️ Deployment
 
--  Backend: Checkout on Render : https://mini-rag-ox04.onrender.com
--  Database: Supabase cloud
--  Secrets: Platform environment variables
+*  Backend: Render
+        🔗 https://mini-rag-ox04.onrender.com/docs
+*  Database: Supabase Cloud
+*  Secrets: Managed via platform environment variables
 
 
 ⚠️ Remarks & Tradeoffs
 
--  Reranker usage may be limited by free-tier quotas
--  Chunking is token-approximate for simplicity
--  Cost estimates are approximate and provider-dependent
--  Designed for clarity and correctness over large-scale optimization
+*  Reranker usage may be limited by free-tier quotas
+*  Chunking uses approximate token sizing for simplicity
+*  Cost estimates are provider-dependent and approximate
+*  Designed for clarity and correctness over large-scale optimization
 
-
+  
 🔮 Future Enhancements
 
--  File uploads (PDF / DOCX)
--  Frontend UI (Next.js)
--  Streaming responses
--  Hybrid search (BM25 + vectors)
--  Detailed token and cost analytics
+*  File uploads (PDF / DOCX)
+*  Frontend UI (Next.js)
+*  Streaming responses
+*  Hybrid search (BM25 + vectors)
+*  Detailed token and cost analytics
 
 
 👤 Author
 
 Swayam Saini
 Aspiring AI Engineer | Data Science Undergraduate
-Mini RAG Assessment
+📧 Email: sainiswayam7@gmail.com
+📞 Contact: +91-7009570187
 
-contact : +91-7009570187
-mail : sainiswayam7@gmail.com
+
+## 🏗️ Architecture Overview
+
