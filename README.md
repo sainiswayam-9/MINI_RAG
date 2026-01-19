@@ -176,7 +176,7 @@ http://127.0.0.1:8000/docs
 
 ☁️ Deployment
 
--  Backend: Render / Railway (free tier)
+-  Backend: Checkout on Render : https://mini-rag-ox04.onrender.com
 -  Database: Supabase cloud
 -  Secrets: Platform environment variables
 
