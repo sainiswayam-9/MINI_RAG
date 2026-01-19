@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Mini RAG</title>
+  <style>
+    body { font-family: Arial; max-width: 800px; margin: auto; }
+    textarea, input { width: 100%; margin: 8px 0; }
+    button { padding: 8px 12px; }
+    .answer { background: #f4f4f4; padding: 10px; }
+  </style>
+</head>
+<body>
+
+<h2>Mini RAG Demo</h2>
+
+<h3>Index Document</h3>
+<input id="doc_id" placeholder="Document ID" />
+<input id="title" placeholder="Title" />
+<textarea id="text" rows="4" placeholder="Paste document text"></textarea>
+<button onclick="indexDoc()">Index</button>
+
+<hr>
+
+<h3>Ask Question</h3>
+<input id="query" placeholder="Your question" />
+<button onclick="ask()">Ask</button>
+
+<div class="answer" id="answer"></div>
+
+<script>
+const BASE_URL = "https://mini-rag-backend.onrender.com";
+
+async function indexDoc() {
+  await fetch(`${BASE_URL}/index`, {
+    method: "POST",
+    headers: {"Content-Type": "application/json"},
+    body: JSON.stringify({
+      doc_id: doc_id.value,
+      title: title.value,
+      text: text.value
+    })
+  });
+  alert("Document indexed");
+}
+
+async function ask() {
+  const res = await fetch(`${BASE_URL}/query`, {
+    method: "POST",
+    headers: {"Content-Type": "application/json"},
+    body: JSON.stringify({ query: query.value })
+  });
+  const data = await res.json();
+  answer.innerText = data.answer;
+}
+</script>
+
+</body>
+</html>
