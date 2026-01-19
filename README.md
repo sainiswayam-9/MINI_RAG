@@ -159,8 +159,12 @@ COHERE_API_KEY=
 
 
 ▶️ Running Locally
+
+WINDOWS ->
+
 python -m venv venv
-source venv\Scripts\activate
+venv\Scripts\activate
+
 pip install -r requirements.txt
 uvicorn main:app --reload
 
