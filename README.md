@@ -196,11 +196,8 @@ http://127.0.0.1:8000/docs
 
 👤 Author
 
-Swayam Saini
-Aspiring AI Engineer | Data Science Undergraduate
-📧 Email: sainiswayam7@gmail.com
-📞 Contact: +91-7009570187
-
-
-## 🏗️ Architecture Overview
+- Swayam Saini
+- Aspiring AI Engineer | Data Science Undergraduate
+- 📧 Email: sainiswayam7@gmail.com
+- 📞 Contact: +91-7009570187
 
